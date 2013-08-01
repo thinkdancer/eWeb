@@ -1,4 +1,5 @@
 /*Autor: gengxiuli@gmail.com*/
+/*For smartBox dev,2013-08-01.*/
 
 #include <stdlib.h>
 #include <stdio.h>
