@@ -1,6 +1,5 @@
 # eWeb Makefile
-
-# include src/Makefile
+# Autor: gengxiuli@gmail.com
 
 build:
 	$(MAKE) -C src

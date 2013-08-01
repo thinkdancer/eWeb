@@ -1,3 +1,5 @@
+/*Autor: gengxiuli@gmail.com*/
+
 #include <stdlib.h>
 #include <stdio.h>
 
