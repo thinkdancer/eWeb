@@ -1,6 +1,7 @@
 /*Autor: gengxiuli@gmail.com*/
 /*For smartBox dev,2013-08-01.*/
 
+/*ported from boa,For more detail see: http://www.boa.org*/
 #include <stdlib.h>
 #include <stdio.h>
 
