@@ -114,24 +114,35 @@ int main(int argc, char **argv)
         }
     }
 
+    /* fix it first, see this file */
     fixup_server_root();
+    /* parse configuration files, see config.c */
     read_config_files();
+    /* log function, see log.c */
     open_logs();
+    /* create http server socket, see this file */
     server_s = create_server_socket();
+    /* init signal for later use, see signals.c */
     init_signals();
+    /* give privs if we can, see this file */
     drop_privs();
+    /* setup envrionment varables, see cgi.c */
     create_common_env();
+    /* escape handle, see escape.c */
     build_needs_escape();
 
+    /* max connections parse from config files,see config.c & y.tab.c for more detail */
     if (max_connections < 1) {
         struct rlimit rl;
 
         /* has not been set explicitly */
+	/* getrlimit is system call, see man getrlimit for more detail */
         c = getrlimit(RLIMIT_NOFILE, &rl);
         if (c < 0) {
             perror("getrlimit");
             exit(1);
         }
+	/* set to max allowed by HOST os. */
         max_connections = rl.rlim_cur;
     }
 
@@ -145,9 +156,11 @@ int main(int argc, char **argv)
             break;
         case 0:
             /* child, success */
+	    /* so,we run in child */
             break;
         default:
             /* parent, success */
+	    /* exit in parent */
             exit(0);
             break;
         }
@@ -160,6 +173,8 @@ int main(int argc, char **argv)
     status.errors = 0;
 
     start_time = current_time;
+
+    /*start socket and process request, see select.c*/
     select_loop(server_s);
     return 0;
 }

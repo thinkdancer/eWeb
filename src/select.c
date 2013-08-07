@@ -30,6 +30,7 @@ fd_set block_read_fdset;
 fd_set block_write_fdset;
 static struct timeval req_timeout;     /* timeval for select */
 
+/*boa main loop*/
 void select_loop(int server_s)
 {
     FD_ZERO(&block_read_fdset);
@@ -64,6 +65,7 @@ void select_loop(int server_s)
             /* move selected req's from request_block to request_ready */
             fdset_update();
 
+	/* see request.c for more details*/
         /* any blocked req's move from request_ready to request_block */
         process_requests(server_s);
 
