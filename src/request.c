@@ -356,6 +356,7 @@ static void free_request(request ** list_head_addr, request * req)
      just plain wrong
      */
 
+    /* gengxiuli,2013-08-07,so much stack size!!! */
     if (req->method == M_POST) {
         char buf[32768];
         read(req->fd, buf, 32768);
