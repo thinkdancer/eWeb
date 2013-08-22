@@ -40,6 +40,8 @@ void sigint(int);
 void sigchld(int);
 void sigalrm(int);
 
+/* signals process, use some global flags to make signal handle more simple */
+
 /*
  * Name: init_signals
  * Description: Sets up signal handlers for all our friends.

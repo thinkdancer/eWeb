@@ -65,6 +65,7 @@ struct mmap_entry *find_mmap(int data_fd, struct stat *s)
     if (mmap_list_entries_used > MMAP_LIST_USE_MAX)
         return NULL;
 
+    /*file memory map ops*/
     m = mmap(0, s->st_size, PROT_READ, MAP_OPTIONS, data_fd, 0);
 
     if ((int) m == -1) {

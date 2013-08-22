@@ -51,6 +51,8 @@
 #include "defines.h"
 #include "globals.h"
 
+/* In front of each function group, this is module name and coresponse file with suffix *.c */
+
 /* alias */
 void add_alias(char *fakename, char *realname, int script);
 int translate_uri(request * req);

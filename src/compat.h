@@ -128,11 +128,15 @@ char *strdup(char *s);
 #define TIMEZONE(foo) *tzname
 #endif
 
+/* memory leak check tools:refer to:http://dmalloc.com */
 #ifdef HAVE_LIBDMALLOC
 #define DMALLOC_FUNC_CHECK
 #include <dmalloc.h>
 #endif
 
+/* argv parse util, for strong function refer to: gflags
+ * https://github.com/schuhschuh/gflags
+ * https://code.google.com/p/gflags*/
 #ifdef HAVE_GETOPT_H
 #include <getopt.h>
 #endif

@@ -77,6 +77,7 @@ void select_loop(int server_s)
                               (ka_timeout ? ka_timeout : REQUEST_TIMEOUT));
         req_timeout.tv_usec = 0l;   /* reset timeout */
 
+	/*select read&write fd*/
         if (select(max_fd + 1, &block_read_fdset,
                    &block_write_fdset, NULL,
                    (request_ready || request_block ? &req_timeout : NULL)) == -1) {

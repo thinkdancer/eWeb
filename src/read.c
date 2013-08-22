@@ -24,6 +24,8 @@
 
 #include "boa.h"
 
+/* http packet read, include header and body content. */
+
 /*
  * Name: read_header
  * Description: Reads data from a request socket.  Manages the current

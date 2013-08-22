@@ -23,6 +23,8 @@
 
 #include "boa.h"
 
+/*queue ops*/
+
 request *request_ready = NULL;  /* ready list head */
 request *request_block = NULL;  /* blocked list head */
 request *request_free = NULL;   /* free list head */

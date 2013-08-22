@@ -130,6 +130,8 @@ static unsigned djb2_hash(char *str)
 #endif
 #endif
 
+/*mime key,value hash*/
+
 /*
  * Name: add_mime_type
  * Description: Adds a key/value pair to the mime_hashtable

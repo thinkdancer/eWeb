@@ -369,6 +369,8 @@ static void free_request(request ** list_head_addr, request * req)
     return;
 }
 
+/* request process state machine */
+
 /*
  * Name: process_requests
  *

@@ -54,6 +54,7 @@ int req_write(request * req, char *msg)
     return req->buffer_end;
 }
 
+/*clear buffer length ???*/
 void reset_output_buffer(request *req)
 {
     req->buffer_end = 0;
@@ -72,6 +73,10 @@ int req_write_escape_http(request * req, char *msg)
     int left;
     inp = msg;
     dest = req->buffer + req->buffer_end;
+
+    /* Pay attention to needs_escape implementation !!! 
+     * Learn how to escape http string in http msg.*/  
+
     /* 3 is a guard band, since we don't check the destination pointer
      * in the middle of a transfer of up to 3 bytes */
     left = BUFFER_SIZE - req->buffer_end - 3;
@@ -95,6 +100,8 @@ int req_write_escape_http(request * req, char *msg)
     }
     return req->buffer_end;
 }
+
+/*Diffs between escapte http & html, html only escape char ">","<","&","/"*/
 
 /*
  * Name: req_write_escape_html
@@ -160,6 +167,7 @@ int req_write_escape_html(request * req, char *msg)
     return req->buffer_end;
 }
 
+/* real send routine!!!*/
 
 /*
  * Name: flush_req
@@ -180,6 +188,7 @@ int req_flush(request * req)
     if (bytes_to_write) {
         int bytes_written;
 
+	/* whether timeout or not ? refer to socket init step.*/
         bytes_written = write(req->fd, req->buffer + req->buffer_start,
                               bytes_to_write);
 
@@ -195,6 +204,7 @@ int req_flush(request * req)
                 return -2;
             }
         }
+/* Make log routine into one function and it will be better. */	
 #ifdef FASCIST_LOGGING
         log_error_time();
         fprintf(stderr, "%s:%d - Wrote \"", __FILE__, __LINE__);
@@ -208,6 +218,8 @@ int req_flush(request * req)
         req->buffer_start = req->buffer_end = 0;
     return req->buffer_end;     /* successful */
 }
+
+/* it is a workaroud*/
 
 /*
  * Name: escape_string

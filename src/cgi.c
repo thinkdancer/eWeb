@@ -28,6 +28,8 @@
 static char *env_gen_extra(const char *key, const char *value, int extra);
 
 int verbose_cgi_logs = 0;
+
+/* a good finish flag.*/
 /* The +1 is for the the NULL in complete_env */
 static char *common_cgi_env[COMMON_CGI_COUNT + 1];
 
@@ -120,6 +122,8 @@ static char *env_gen_extra(const char *key, const char *value, int extra)
     value_len = strlen(value);
     /* leave room for '=' sign and null terminator */
     result = malloc(extra + key_len + value_len + 2);
+
+    /* is this a good implementaion?*/
     if (result) {
         memcpy(result + extra, key, key_len);
         *(result + extra + key_len) = '=';
@@ -148,6 +152,7 @@ int add_cgi_env(request * req, char *key, char *value, int http_prefix)
     char *p;
     int prefix_len;
 
+    /* take care of http_prefix length. */
     if (http_prefix) {
         prefix_len = 5;
     } else {
@@ -257,6 +262,7 @@ int complete_env(request * req)
     return 0;
 }
 
+/* for cgi script use */
 /*
  * Name: make_args_cgi
  *
@@ -396,6 +402,7 @@ int init_cgi(request * req)
         }
     }
 
+    /* it is a good ipc implementation. pipe is used in one direction,so there are two pipes */
     child_pid = fork();
     switch(child_pid) {
     case -1:
@@ -489,6 +496,7 @@ int init_cgi(request * req)
          * if we don't tied STDERR (current log_error) to cgi_log_fd,
          *  then we ought to close it.
          */
+	/* file description duplicate,stderr */
         if (!cgi_log_fd)
             dup2(devnullfd, STDERR_FILENO);
         else
@@ -497,8 +505,10 @@ int init_cgi(request * req)
         if (req->is_cgi) {
             char *aargv[CGI_ARGC_MAX + 1];
             create_argv(req, aargv);
+	    /* cgi script exec with given argv and envriornment variable. */
             execve(req->pathname, aargv, req->cgi_env);
         } else {
+	    /*execl ?*/
             if (req->pathname[strlen(req->pathname) - 1] == '/')
                 execl(dirmaker, dirmaker, req->pathname, req->request_uri,
                       NULL);

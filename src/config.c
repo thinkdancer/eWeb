@@ -85,6 +85,7 @@ static uid_t current_uid=0;
 #define S1A STMT_ONE_ARG
 #define S2A STMT_TWO_ARGS
 
+/* options in config file */
 struct ccommand clist[] = {
     {"Port", S1A, c_set_int, &server_port},
     {"Listen", S1A, c_set_string, &server_ip},

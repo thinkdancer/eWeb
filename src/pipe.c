@@ -24,6 +24,8 @@
 
 #include "boa.h"
 
+/* pipe mainly be used at cgi implementation. */
+
 /*
  * Name: read_from_pipe
  * Description: Reads data from a pipe

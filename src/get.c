@@ -43,9 +43,11 @@ int init_get(request * req)
     struct stat statbuf;
     volatile int bytes;
 
+    /* file ops init */
     data_fd = open(req->pathname, O_RDONLY);
     saved_errno = errno; /* might not get used */
 
+/*gnuzip support*/
 #ifdef GUNZIP
     if (data_fd == -1 && errno == ENOENT) {
         /* cannot open */
@@ -198,6 +200,7 @@ int init_get(request * req)
         if (bytes > req->filesize)
             bytes = req->filesize;
 
+	/*mmap make file read faster*/
         if (sigsetjmp(env, 1) == 0) {
             handle_sigbus = 1;
             memcpy(req->buffer + req->buffer_end, req->data_mem, bytes);
@@ -243,6 +246,7 @@ int process_get(request * req)
         bytes_to_write = SOCKETBUF_SIZE;
 
 
+    /*write data to socket*/
     if (sigsetjmp(env, 1) == 0) {
         handle_sigbus = 1;
         bytes_written = write(req->fd, req->data_mem + req->filepos,

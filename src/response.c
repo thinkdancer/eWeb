@@ -24,6 +24,8 @@
 
 #include "boa.h"
 
+/*http response content,charset setting*/
+
 #define HTML "text/html; charset=ISO-8859-1"
 #define CRLF "\r\n"
 
