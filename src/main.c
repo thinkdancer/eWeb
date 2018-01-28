@@ -8,5 +8,6 @@
 int main(int argc,char** argv)
 {
 	printf("This is a web servser on embedded system.\r\n");
+	printf("Git test.\r\n");
 	return 0;
 }
